@@ -18,6 +18,69 @@ body {
   padding: 0;
 }
 
+@keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+@-webkit-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+@-moz-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+@-ms-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+.stars,
+.twinkling {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.stars {
+  background: #000 url(http://sylvaingarnot.fr/media/stars.png) repeat top center;
+  z-index: 0;
+}
+
+.twinkling {
+  background: transparent url(http://sylvaingarnot.fr/media/twinkling.png) repeat top center;
+  z-index: 1;
+  -moz-animation: move-twink-back 200s linear infinite;
+  -ms-animation: move-twink-back 200s linear infinite;
+  -o-animation: move-twink-back 200s linear infinite;
+  -webkit-animation: move-twink-back 200s linear infinite;
+  animation: move-twink-back 200s linear infinite;
+}
+
 .site {
   z-index: 10;
   height: 100%;
@@ -33,7 +96,9 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 15;
+  right: 0;
+  z-index: 20;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .navbar-buttons {
@@ -53,6 +118,12 @@ body {
   color: #FFF;
   font-size: 20px;
   font-weight: 600;
+  opacity: 1;
+  border: none;
+}
+
+.navbar-button.active {
+  border: 2px solid red;
 }
 
 section {
@@ -70,8 +141,9 @@ section {
 }*/
 
 .content {
-  max-width: 700px;
+  max-width: 900px;
   width: 100%;
+  height: auto;
   position: relative;
   top: -20px;
   background-color: rgba(255, 255, 255, .1);
@@ -79,7 +151,7 @@ section {
   flex-direction: column;
   justify-content: center;
   border-radius: 2px;
-  padding: 0 100px 30px;
+  padding: 0 0 30px;
   margin: 0 auto;
 }
 
@@ -118,6 +190,13 @@ section {
   font-size: 32px;
   margin-top: 10px;
   margin-bottom: 30px;
+  min-height: 41px;
+  opacity: 1;
+  transition: all 1s ease-in-out;
+}
+
+.title.changing {
+  opacity: 0;
 }
 
 .links {
@@ -161,13 +240,13 @@ section {
 
 .info {
   background-color: rgba(255, 255, 255, .1);
-  max-width: 700px;
+  max-width: 900px;
   width: 100%;
   height: auto;
   display: flex;
   flex-flow: column nowrap;
   border-radius: 2px;
-  padding: 50px 100px;
+  padding: 50px 0;
   margin: 80px auto 0;
 }
 
@@ -175,7 +254,7 @@ section {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding: 5px 0;
+  padding: 5px 80px;
 }
 
 .topic {
@@ -284,65 +363,28 @@ section {
   color: rgba(0, 0, 0, .8);
 }
 
-@keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@-webkit-keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@-moz-keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@-ms-keyframes move-twink-back {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-.stars,
-.twinkling {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+#footer {
+  min-height: 200px;
+  max-height: 200px;
   width: 100%;
-  height: 100%;
-  display: block;
+  margin: 0;
+  padding: 0;
 }
 
-.stars {
-  background: #000 url(http://sylvaingarnot.fr/media/stars.png) repeat top center;
-  z-index: 0;
+/*.moon-container {
+  height: 200px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
 }
 
-.twinkling {
-  background: transparent url(http://sylvaingarnot.fr/media/twinkling.png) repeat top center;
-  z-index: 1;
-  -moz-animation: move-twink-back 200s linear infinite;
-  -ms-animation: move-twink-back 200s linear infinite;
-  -o-animation: move-twink-back 200s linear infinite;
-  -webkit-animation: move-twink-back 200s linear infinite;
-  animation: move-twink-back 200s linear infinite;
-}
+.moon {
+  height: 6000px;
+  position: absolute;
+   left: 52%;
+   -webkit-transform: translateX(-50%);
+  top: -200px;
+}*/
