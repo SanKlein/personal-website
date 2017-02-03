@@ -110,7 +110,6 @@ body {
   height: 80px;
   width: auto;
   padding-left: 20px;
-  float: left;
 }
 
 .navbar-button {
@@ -442,3 +441,122 @@ section {
    -webkit-transform: translateX(-50%);
   top: -200px;
 }*/
+
+@media only screen and (max-width : 1040px) {
+  .category {
+    padding: 5px 40px;
+  }
+}
+
+@media only screen and (max-width : 841px) {
+  .project-description {
+    padding: 0 15px 10px;
+  }
+
+  .project-tech {
+    padding: 0 15px 15px;
+  }
+
+  .category {
+    padding: 5px 20px;
+  }
+}
+
+@media only screen and (max-width : 668px) {
+  section {
+    margin: 0 40px;
+  }
+}
+
+@media only screen and (max-width : 420px) {
+  .navbar {
+    text-align: center;
+  }
+
+  .navbar-buttons {
+    padding-left: 0;
+  }
+
+  section {
+    margin: 0 20px;
+  }
+
+  .picture {
+    height: 100px;
+    width: 100px;
+    top: 30px;
+  }
+
+  .photo {
+    top: -15px;
+    height: 160px;
+  }
+
+  .name {
+    font-size: 58px;
+  }
+
+  .links {
+    height: 70px;
+  }
+
+  .link-container {
+    height: 35px;
+    width: 35px;
+  }
+
+  .icon {
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+  }
+
+  .topic {
+    font-size: 16px;
+  }
+
+  .answer {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width : 376px) {
+  .link-container {
+    margin: 10px 6px 0;
+  }
+}
+
+@media only screen and (max-width : 325px) {
+  .navbar-button {
+    margin: 25px 12px;
+  }
+
+  .name {
+    font-size: 48px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .link-container {
+    height: 30px;
+    width: 30px;
+  }
+
+  .icon {
+    font-size: 27px;
+  }
+
+  .info {
+    padding: 30px 0;
+  }
+
+  .topic {
+    font-size: 14px;
+  }
+
+  .answer {
+    font-size: 14px;
+  }
+}

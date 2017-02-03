@@ -30,7 +30,8 @@ var init = function() {
       navBar.classList.remove('shadow');
       navButtons.style.height = '80px';
       [].forEach.call(navBarButtons, function(button) {
-        button.style.margin = '25px 23px';
+        button.style.marginTop = '25px';
+        button.style.marginBottom = '25px';
         button.style.color = '#FFF';
       })
     } else if (scroll > navBarConst) {
@@ -39,7 +40,8 @@ var init = function() {
       navBar.classList.add('shadow');
       navButtons.style.height = '60px';
       [].forEach.call(navBarButtons, function(button) {
-        button.style.margin = '15px 23px';
+        button.style.marginTop = '15px';
+        button.style.marginBottom = '15px';
         button.style.color = '#424242';
       })
     } else {
@@ -52,7 +54,8 @@ var init = function() {
       navBar.classList.remove('shadow');
       navButtons.style.height = height + 'px';
       [].forEach.call(navBarButtons, function(button) {
-        button.style.margin = margin + 'px 23px';
+        button.style.marginTop = margin + 'px';
+        button.style.marginBottom = margin + 'px';
         button.style.color = opacity > .5 ? '#424242' : '#FFF';
       })
     }
@@ -115,24 +118,36 @@ var init = function() {
     });
   };
 
+  var isInViewport = function(element) {
+    var top = window.scrollY;
+    var bottom = top + window.innerHeight;
+
+    var elemTop = element.offsetTop;
+    var elemBottom = elemTop + element.offsetHeight;
+
+    return bottom > elemTop && top < elemBottom;
+  };
+
   var checkFade = function(e) {
     var scroll = window.scrollY;
     [].forEach.call(sections, function(section) {
-      var sectionHeight = section.offsetHeight,
-          sectionTop = section.offsetTop;
-      var startFadeIn = sectionTop - sectionHeight;
-      var endFadeOut = startFadeIn + (sectionHeight * 2);
-
-      if (scroll < startFadeIn || scroll > endFadeOut) {
-        section.style.opacity = '0';
-      } else {
-        var diff = Math.abs(scroll - sectionTop);
-        if (diff > sectionHeight / 4) {
-          diff = diff - (sectionHeight / 4);
-          var opacity = 1 - Math.abs(parseFloat(diff / (sectionHeight / 2)).toFixed(2));
-          section.style.opacity = opacity.toString();
+      if (isInViewport(section)) {
+        var sectionHeight = section.offsetHeight,
+            sectionTop = section.offsetTop;
+        var fadeArea = ((sectionHeight * 3) / 4);
+        var startFadeIn = sectionTop - fadeArea;
+        var endFadeOut = startFadeIn + ((sectionHeight * 10) / 8);
+        if (scroll < startFadeIn || scroll > endFadeOut) {
+          section.style.opacity = '0';
         } else {
-          section.style.opacity = '1';
+          var diff = Math.abs(scroll - sectionTop);
+          if (diff > sectionHeight / 8) {
+            diff = diff - (sectionHeight / 8);
+            var opacity = 1 - Math.abs(parseFloat(diff / (sectionHeight / 4)).toFixed(2));
+            section.style.opacity = opacity.toString();
+          } else {
+            section.style.opacity = '1';
+          }
         }
       }
     });
@@ -145,17 +160,6 @@ var init = function() {
 
     stars.style.backgroundPosition = backgroundPos;
     twinkling.style.backgroundPosition = backgroundPos;
-  };
-
-  var isInViewport = function(element) {
-    element = element.parentElement;
-    var top = window.scrollY;
-    var bottom = top + window.innerHeight;
-
-    var elemTop = element.offsetTop;
-    var elemBottom = elemTop + element.offsetHeight;
-
-    return bottom > elemTop && top < elemBottom;
   };
 
   var calcTilt = function(element, e) {
@@ -174,16 +178,16 @@ var init = function() {
   };
 
   var mouseTilt = function(e) {
-    if (isInViewport(homePage)) {
+    if (isInViewport(homePage.parentElement)) {
       homePage.style.transform = calcTilt(homePage, e);
     }
 
-    if (isInViewport(info)) {
+    if (isInViewport(info.parentElement)) {
       info.style.transform = calcTilt(info, e);
     }
 
     [].forEach.call(projects, function(project) {
-      if (isInViewport(project)) {
+      if (isInViewport(project.parentElement)) {
         project.style.transform = calcTilt(project, e);
       }
     });
