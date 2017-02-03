@@ -1,5 +1,5 @@
-var adjectives = ['Hardworking', 'Optimistic', 'Positive', 'Ambitious', 'Growing', 'Passionate', 'Persistent', 'Patient', 'Creative', 'Driven'],
-    nouns = ['Creator', 'Programmer', 'Engineer', 'Scholar', 'Artist', 'Software Developer', 'Music Lover'],
+var adjectives = ['Optimistic', 'Growing', 'Passionate', 'Persistent', 'Patient', 'Creative', 'Driven'],
+    nouns = ['Creator', 'Programmer', 'Engineer', 'Scholar', 'Software Developer', 'Music Lover'],
     navBarConst = 300;
 
 var getRandom = function(arr) {
@@ -29,7 +29,7 @@ var init = function() {
       navBar.style.height = '80px';
       navBar.classList.remove('shadow');
       navButtons.style.height = '80px';
-      navBarButtons.forEach(function(button) {
+      [].forEach.call(navBarButtons, function(button) {
         button.style.margin = '25px 23px';
         button.style.color = '#FFF';
       })
@@ -38,7 +38,7 @@ var init = function() {
       navBar.style.height = '60px';
       navBar.classList.add('shadow');
       navButtons.style.height = '60px';
-      navBarButtons.forEach(function(button) {
+      [].forEach.call(navBarButtons, function(button) {
         button.style.margin = '15px 23px';
         button.style.color = '#424242';
       })
@@ -51,7 +51,7 @@ var init = function() {
       navBar.style.height = height + 'px';
       navBar.classList.remove('shadow');
       navButtons.style.height = height + 'px';
-      navBarButtons.forEach(function(button) {
+      [].forEach.call(navBarButtons, function(button) {
         button.style.margin = margin + 'px 23px';
         button.style.color = opacity > .5 ? '#424242' : '#FFF';
       })
@@ -63,7 +63,7 @@ var init = function() {
     return word !== newWord ? newWord : getNewWord(word, arr);
   };
 
-  var changeTitle = function(interval = 1000) {
+  var changeTitle = function(interval) {
     title.classList.add('changing');
     setTimeout(function() {
       adjective = getNewWord(adjective, adjectives);
@@ -94,7 +94,7 @@ var init = function() {
   var checkHighlight = function(e) {
     var scroll = window.scrollY;
 
-    navBarButtons.forEach(function(button) {
+    [].forEach.call(navBarButtons, function(button) {
       var section = document.querySelector('#' + button.dataset.link),
           highlightAt = section.offsetTop,
           unhighlightAt = section.offsetTop + section.offsetHeight;
@@ -112,12 +112,12 @@ var init = function() {
           button.classList.remove('active');
         }
       }
-    })
+    });
   };
 
   var checkFade = function(e) {
     var scroll = window.scrollY;
-    sections.forEach(function(section) {
+    [].forEach.call(sections, function(section) {
       var sectionHeight = section.offsetHeight,
           sectionTop = section.offsetTop;
       var startFadeIn = sectionTop - sectionHeight;
@@ -147,19 +147,45 @@ var init = function() {
     twinkling.style.backgroundPosition = backgroundPos;
   };
 
-  var mouseTilt = function(e) {
-    var h = Math.floor(window.innerHeight);
-    var w = Math.floor(window.innerWidth);
+  var isInViewport = function(element) {
+    element = element.parentElement;
+    var top = window.scrollY;
+    var bottom = top + window.innerHeight;
+
+    var elemTop = element.offsetTop;
+    var elemBottom = elemTop + element.offsetHeight;
+
+    return bottom > elemTop && top < elemBottom;
+  };
+
+  var calcTilt = function(element, e) {
+    var top = element.offsetTop;
+    var left = element.offsetLeft;
+    var elemY = top + (element.offsetHeight / 2);
+    var elemX = left + (element.offsetWidth / 2);
+
     var x = e.clientX;
     var y = e.clientY;
 
-    var rotateX = (h / 2 - y) / 40;
-    var rotateY = (w / 2 - x) / 40;
+    var rotateX = (elemY - y) / 40;
+    var rotateY = (elemX - x) / 40;
 
-    homePage.style.transform = `rotateX(${rotateX}deg) rotateY(${-rotateY}deg)`;
-    info.style.transform = `rotateX(${rotateX}deg) rotateY(${-rotateY}deg)`;
-    projects.forEach(function(project) {
-      project.style.transform = `rotateX(${rotateX}deg) rotateY(${-rotateY}deg)`;
+    return `rotateX(${rotateX}deg) rotateY(${-rotateY}deg)`;
+  };
+
+  var mouseTilt = function(e) {
+    if (isInViewport(homePage)) {
+      homePage.style.transform = calcTilt(homePage, e);
+    }
+
+    if (isInViewport(info)) {
+      info.style.transform = calcTilt(info, e);
+    }
+
+    [].forEach.call(projects, function(project) {
+      if (isInViewport(project)) {
+        project.style.transform = calcTilt(project, e);
+      }
     });
   };
 
@@ -168,7 +194,7 @@ var init = function() {
   changeTitle(0);
   setInterval(changeTitle, 5000);
 
-  navBarButtons.forEach(function(button) {
+  [].forEach.call(navBarButtons, function(button) {
     button.addEventListener('click', (e) => scrollToButton(e, button));
   });
 
